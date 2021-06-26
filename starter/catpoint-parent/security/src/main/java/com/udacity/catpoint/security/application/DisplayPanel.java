@@ -13,42 +13,42 @@ import javax.swing.*;
  */
 public class DisplayPanel extends JPanel implements com.udacity.catpoint.security.application.StatusListener {
 
-    private JLabel currentStatusLabel;
+	private JLabel currentStatusLabel;
 
-    public DisplayPanel(SecurityService securityService) {
-        super();
-        setLayout(new MigLayout());
+	public DisplayPanel ( SecurityService securityService ) {
+		super ( );
+		setLayout ( new MigLayout ( ) );
 
-        securityService.addStatusListener(this);
+		securityService.addStatusListener ( this );
 
-        JLabel panelLabel = new JLabel("Very Secure Home Security");
-        JLabel systemStatusLabel = new JLabel("System Status:");
-        currentStatusLabel = new JLabel();
+		JLabel panelLabel = new JLabel ( "Very Secure Home Security" );
+		JLabel systemStatusLabel = new JLabel ( "System Status:" );
+		currentStatusLabel = new JLabel ( );
 
-        panelLabel.setFont(StyleService.HEADING_FONT);
+		panelLabel.setFont ( StyleService.HEADING_FONT );
 
-        notify(securityService.getAlarmStatus());
+		notify ( securityService.getAlarmStatus ( ) );
 
-        add(panelLabel, "span 2, wrap");
-        add(systemStatusLabel);
-        add(currentStatusLabel, "wrap");
+		add ( panelLabel, "span 2, wrap" );
+		add ( systemStatusLabel );
+		add ( currentStatusLabel, "wrap" );
 
-    }
+	}
 
-    @Override
-    public void notify(AlarmStatus status) {
-        currentStatusLabel.setText(status.getDescription());
-        currentStatusLabel.setBackground(status.getColor());
-        currentStatusLabel.setOpaque(true);
-    }
+	@Override
+	public void notify ( AlarmStatus status ) {
+		currentStatusLabel.setText ( status.getDescription ( ) );
+		currentStatusLabel.setBackground ( status.getColor ( ) );
+		currentStatusLabel.setOpaque ( true );
+	}
 
-    @Override
-    public void catDetected(boolean catDetected) {
-        // no behavior necessary
-    }
+	@Override
+	public void catDetected ( boolean catDetected ) {
+		// no behavior necessary
+	}
 
-    @Override
-    public void sensorStatusChanged() {
-        // no behavior necessary
-    }
+	@Override
+	public void sensorStatusChanged ( ) {
+		// no behavior necessary
+	}
 }

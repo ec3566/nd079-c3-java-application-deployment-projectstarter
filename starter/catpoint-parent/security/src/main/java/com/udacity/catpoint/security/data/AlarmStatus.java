@@ -7,23 +7,23 @@ import java.awt.*;
  * text and color is associated with the alarm.
  */
 public enum AlarmStatus {
-    NO_ALARM("Cool and Good", new Color(120,200,30)),
-    PENDING_ALARM("I'm in Danger...", new Color(200,150,20)),
-    ALARM("Awooga!", new Color(250,80,50));
+	NO_ALARM ( "NO_ALARM", new Color ( 120, 200, 30 ) ),
+	PENDING_ALARM ( "PENDING_ALARM", new Color ( 200, 150, 20 ) ),
+	ALARM ( "ALARM", new Color ( 250, 80, 50 ) );
 
-    private final String description;
-    private final Color color;
+	private final String description;
+	private final Color color;
 
-    AlarmStatus(String description, Color color) {
-        this.description = description;
-        this.color = color;
-    }
+	AlarmStatus ( String description, Color color ) {
+		this.description = description;
+		this.color = color;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public String getDescription ( ) {
+		return description;
+	}
 
-    public Color getColor() {
-        return color;
-    }
+	public Color getColor ( ) {
+		return color;
+	}
 }

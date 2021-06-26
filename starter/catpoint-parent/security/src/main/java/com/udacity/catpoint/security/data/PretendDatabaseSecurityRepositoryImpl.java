@@ -15,78 +15,78 @@ import java.util.prefs.Preferences;
  */
 public class PretendDatabaseSecurityRepositoryImpl implements com.udacity.catpoint.security.data.SecurityRepository {
 
-    private Set< com.udacity.catpoint.security.data.Sensor > sensors;
-    private AlarmStatus alarmStatus;
-    private ArmingStatus armingStatus;
+	private Set < com.udacity.catpoint.security.data.Sensor > sensors;
+	private AlarmStatus alarmStatus;
+	private ArmingStatus armingStatus;
 
-    //preference keys
-    private static final String SENSORS = "SENSORS";
-    private static final String ALARM_STATUS = "ALARM_STATUS";
-    private static final String ARMING_STATUS = "ARMING_STATUS";
+	//preference keys
+	private static final String SENSORS = "SENSORS";
+	private static final String ALARM_STATUS = "ALARM_STATUS";
+	private static final String ARMING_STATUS = "ARMING_STATUS";
 
-    private static final Preferences prefs = Preferences.userNodeForPackage(PretendDatabaseSecurityRepositoryImpl.class);
-    private static final Gson gson = new Gson(); //used to serialize objects into JSON
+	private static final Preferences prefs = Preferences.userNodeForPackage ( PretendDatabaseSecurityRepositoryImpl.class );
+	private static final Gson gson = new Gson ( ); //used to serialize objects into JSON
 
-    public PretendDatabaseSecurityRepositoryImpl() {
-        //load system state from prefs, or else default
-        alarmStatus = AlarmStatus.valueOf(prefs.get(ALARM_STATUS, AlarmStatus.NO_ALARM.toString()));
-        armingStatus = ArmingStatus.valueOf(prefs.get(ARMING_STATUS, ArmingStatus.DISARMED.toString()));
+	public PretendDatabaseSecurityRepositoryImpl ( ) {
+		//load system state from prefs, or else default
+		alarmStatus = AlarmStatus.valueOf ( prefs.get ( ALARM_STATUS, AlarmStatus.NO_ALARM.toString ( ) ) );
+		armingStatus = ArmingStatus.valueOf ( prefs.get ( ARMING_STATUS, ArmingStatus.DISARMED.toString ( ) ) );
 
-        //we've serialized our sensor objects for storage, which should be a good warning sign that
-        // this is likely an impractical solution for a real system
-        String sensorString = prefs.get(SENSORS, null);
-        if(sensorString == null) {
-            sensors = new TreeSet<>();
-        } else {
-            Type type = new TypeToken<Set< com.udacity.catpoint.security.data.Sensor >>() {
-            }.getType();
-            sensors = gson.fromJson(sensorString, type);
-        }
-    }
+		//we've serialized our sensor objects for storage, which should be a good warning sign that
+		// this is likely an impractical solution for a real system
+		String sensorString = prefs.get ( SENSORS, null );
+		if ( sensorString == null ) {
+			sensors = new TreeSet <> ( );
+		} else {
+			Type type = new TypeToken < Set < com.udacity.catpoint.security.data.Sensor > > ( ) {
+			}.getType ( );
+			sensors = gson.fromJson ( sensorString, type );
+		}
+	}
 
-    @Override
-    public void addSensor( com.udacity.catpoint.security.data.Sensor sensor) {
-        sensors.add(sensor);
-        prefs.put(SENSORS, gson.toJson(sensors));
-    }
+	@Override
+	public void addSensor ( com.udacity.catpoint.security.data.Sensor sensor ) {
+		sensors.add ( sensor );
+		prefs.put ( SENSORS, gson.toJson ( sensors ) );
+	}
 
-    @Override
-    public void removeSensor( com.udacity.catpoint.security.data.Sensor sensor) {
-        sensors.remove(sensor);
-        prefs.put(SENSORS, gson.toJson(sensors));
-    }
+	@Override
+	public void removeSensor ( com.udacity.catpoint.security.data.Sensor sensor ) {
+		sensors.remove ( sensor );
+		prefs.put ( SENSORS, gson.toJson ( sensors ) );
+	}
 
-    @Override
-    public void updateSensor( com.udacity.catpoint.security.data.Sensor sensor) {
-        sensors.remove(sensor);
-        sensors.add(sensor);
-        prefs.put(SENSORS, gson.toJson(sensors));
-    }
+	@Override
+	public void updateSensor ( com.udacity.catpoint.security.data.Sensor sensor ) {
+		sensors.remove ( sensor );
+		sensors.add ( sensor );
+		prefs.put ( SENSORS, gson.toJson ( sensors ) );
+	}
 
-    @Override
-    public void setAlarmStatus(AlarmStatus alarmStatus) {
-        this.alarmStatus = alarmStatus;
-        prefs.put(ALARM_STATUS, this.alarmStatus.toString());
-    }
+	@Override
+	public void setAlarmStatus ( AlarmStatus alarmStatus ) {
+		this.alarmStatus = alarmStatus;
+		prefs.put ( ALARM_STATUS, this.alarmStatus.toString ( ) );
+	}
 
-    @Override
-    public void setArmingStatus(ArmingStatus armingStatus) {
-        this.armingStatus = armingStatus;
-        prefs.put(ARMING_STATUS, this.armingStatus.toString());
-    }
+	@Override
+	public void setArmingStatus ( ArmingStatus armingStatus ) {
+		this.armingStatus = armingStatus;
+		prefs.put ( ARMING_STATUS, this.armingStatus.toString ( ) );
+	}
 
-    @Override
-    public Set< com.udacity.catpoint.security.data.Sensor > getSensors() {
-        return sensors;
-    }
+	@Override
+	public Set < com.udacity.catpoint.security.data.Sensor > getSensors ( ) {
+		return sensors;
+	}
 
-    @Override
-    public AlarmStatus getAlarmStatus() {
-        return alarmStatus;
-    }
+	@Override
+	public AlarmStatus getAlarmStatus ( ) {
+		return alarmStatus;
+	}
 
-    @Override
-    public ArmingStatus getArmingStatus() {
-        return armingStatus;
-    }
+	@Override
+	public ArmingStatus getArmingStatus ( ) {
+		return armingStatus;
+	}
 }

@@ -10,12 +10,18 @@
 
   <name>catpoint-parent</name>
   <url>http://www.example.com</url>
+  <packaging>pom</packaging>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>14</maven.compiler.source>
     <maven.compiler.target>14</maven.compiler.target>
   </properties>
+
+  <modules>
+    <module>image</module>
+    <module>security</module>
+  </modules>
 
   <dependencies>
     <!-- https://mvnrepository.com/artifact/com.miglayout/miglayout -->

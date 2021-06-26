@@ -43,13 +43,13 @@ public class SecurityTestService {
 	}
 
 	private Set < Sensor > getAllSensors ( int count, boolean status ) {
-		Set < Sensor > sensors = new HashSet <> ( );
+		Set < Sensor > sensorSet = new HashSet <> ( );
 		for ( int i = 0; i < count; i++ ) {
-			sensors.add ( new Sensor ( randomUUID, SensorType.DOOR ) );
+			sensorSet.add ( new Sensor ( randomUUID, SensorType.DOOR ) );
 		}
-		sensors.forEach ( sensor -> sensor.setActive ( status ) );
+		sensorSet.forEach ( sensor -> sensor.setActive ( status ) );
 
-		return sensors;
+		return sensorSet;
 	}
 
 	@BeforeEach
@@ -96,7 +96,7 @@ public class SecurityTestService {
 		when ( sr.getAlarmStatus ( ) ).thenReturn ( AlarmStatus.PENDING_ALARM );
 		testSensor.setActive ( false );
 		// OFF
-		ss.changeSensorActivationStatus ( testSensor, false );
+		ss.changeSensorActivationStatus ( testSensor );
 
 		// VERIFY ALRRM PROPERLY DEACTIVATES
 		verify ( sr ).setAlarmStatus ( AlarmStatus.NO_ALARM );
@@ -191,6 +191,7 @@ public class SecurityTestService {
 	@EnumSource ( value = ArmingStatus.class, names = { "ARMED_HOME", "ARMED_AWAY" } )
 	void if_the_system_is_armed_reset_all_sensors_to_inactive ( ArmingStatus armingStatus ) {
 		Set < Sensor > sensorSet = getAllSensors ( 2, true );
+		when ( sr.getAlarmStatus ( ) ).thenReturn ( AlarmStatus.PENDING_ALARM );
 		when ( sr.getSensors ( ) ).thenReturn ( sensorSet );
 		ss.setArmingStatus ( armingStatus );
 

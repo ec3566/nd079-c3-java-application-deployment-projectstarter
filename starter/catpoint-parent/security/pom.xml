@@ -24,6 +24,15 @@
         <dep.version>1.0-SNAPSHOT</dep.version>
     </properties>
 
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>4.2.2</version>
+            </plugin>
+        </plugins>
+    </reporting>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/com.miglayout/miglayout -->
         <dependency>

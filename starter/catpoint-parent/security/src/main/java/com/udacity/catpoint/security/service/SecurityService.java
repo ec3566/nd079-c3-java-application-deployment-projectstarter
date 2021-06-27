@@ -10,6 +10,7 @@ import com.udacity.catpoint.image.service.FakeImageService;
 import java.awt.image.BufferedImage;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 /**
  * Service that receives information about changes to the security system. Responsible for
@@ -38,6 +39,9 @@ public class SecurityService {
 	public void setArmingStatus ( ArmingStatus armingStatus ) {
 		if ( armingStatus == ArmingStatus.DISARMED ) {
 			setAlarmStatus ( AlarmStatus.NO_ALARM );
+		} else {
+			ConcurrentSkipListSet < Sensor > sensorConcurrentSkipListSet = new ConcurrentSkipListSet <> ( getSensors ( ) );
+			sensorConcurrentSkipListSet.forEach ( sensor -> changeSensorActivationStatus ( sensor, false ));
 		}
 		securityRepository.setArmingStatus ( armingStatus );
 	}

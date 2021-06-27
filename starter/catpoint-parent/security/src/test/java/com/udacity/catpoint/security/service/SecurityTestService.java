@@ -209,6 +209,28 @@ public class SecurityTestService {
 
 		verify ( sr, times ( 1 ) ).setAlarmStatus ( AlarmStatus.ALARM );
 	}
+
+	// status listeners
+	@Test
+	void setStatusListener ( ) {
+		ss.addStatusListener ( statusListener );
+		ss.removeStatusListener ( statusListener );
+	}
+
+	// handle sensor activated
+	@Test
+	void handleSensorActivatedWhenDisarmed ( ) {
+		when ( sr.getArmingStatus ( ) ).thenReturn ( ArmingStatus.DISARMED );
+		ss.changeSensorActivationStatus ( testSensor, true );
+	}
+
+	//handle sensor deactivated coverage
+	@Test
+	void handleSensorDeactivatedWhenAlarm ( ){
+		when ( sr.getArmingStatus ( ) ).thenReturn ( ArmingStatus.DISARMED );
+		when ( sr.getAlarmStatus ( ) ).thenReturn ( AlarmStatus.ALARM );
+		ss.changeSensorActivationStatus ( testSensor );
+	}
 }
 
 
